@@ -1,0 +1,182 @@
+          <%=form_for @visit, :controller => :visits, :action => :update, remote: true,  :html => { :id => 'form_visit_edit'} do |f| %>
+
+      <%=fields_for @owner do |o| %>
+<div class="container" id="visit_show">
+	<div class="panel panel-default" >
+
+
+    <div class="panel-heading">טיפול ברכב מספר <%=@owner.car_number%> מיום : <%=@visit.created_at.strftime("%d/%m/%Y")%>
+    </div>
+
+    	<div class="panel-body"> פרטי הלקוח והרכב
+     	 <div class="row">
+
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label "שם לקוח", :class => "control-label" %>
+				<%=o.text_field :name, :class => 'form-control'%>
+			</div>
+			
+			<div class="col-xs-4" style='float:right'>
+
+				<%=o.label 'טלפון לקוח' %>
+				<%=o.text_field :phone, :class => 'form-control'%>
+
+			</div>
+
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label 'דוא"ל' %>
+				<%=o.text_field :email, :class => 'form-control'%>
+				
+  			</div>
+
+       		<div class="col-xs-2" style='float:right'>
+  				<%=o.label "סוג רכב" %>
+				<%=o.text_field :car_type, :class => 'form-control'%>
+			</div>
+       		
+       		<div class="col-xs-2" style='float:right'>
+        
+     		   <%=o.label "דגם" %>
+      	       <%=o.text_field :car_model,  class: 'form-control'%>
+   			</div>
+
+			<div class="col-xs-2" style='float:right'>
+				<%=o.label 'שנת יצור' %>
+				<%=o.text_field :car_year, :class => 'form-control'%>
+			</div>
+      		
+      		<div class="col-xs-2" style='float:right'>
+        
+  			   <%=o.label 'ק"מ' %>
+   			   <%=o.text_field :car_km,   class: 'form-control'%>
+        
+  			 </div>
+
+				
+			<div class="col-xs-4">
+				<%=o.label "מס' רכב" %>
+				<%=o.text_field :car_number, :class => 'form-control'%>
+			</div>
+
+            <div class="col-xs-4" style='float:right'>
+        
+        		<%=o.label 'הטיפול הבא' %>
+       			 <%=o.text_field :car_next_service_date, class: 'form-control'%>
+        
+       		</div>
+			<div class="col-xs-4">
+				<br>
+				<%=f.submit "עדכן נתונים", :class => "btn btn-primary btn-md btn-block"%>
+			</div>
+          <div class="col-xs-4" id="open_close_button">
+          <%= render 'status' %>
+          </div>
+                          <div class="col-xs-4">
+             <br>
+          <%=link_to "הצג כל הביקורים ברכב זה", car_visits_path, :class => "btn btn-primary btn-md" %>
+          </div>
+			<div class="col-xs-12">
+				<%=f.label "הערות לטיפול" %>
+				<%=f.text_area :notes ,:class => 'form-control', :rows => 7%>
+
+			</div>
+
+
+</div>
+		</div>
+<% end %>
+<% end %>
+  </div>
+
+</div>
+
+<div class="container" id="visit_items">
+  <div class="panel panel-default" >
+      <div class="panel-heading">הוספת\מחיקת שורות טיפול ברכב מס' <%=@owner.car_number%>
+      </div>
+    <div class="panel-body"> פירוט טיפולים
+
+ 
+
+        
+    <table class="table table-hover" id="table-of-shit">
+      <%=render "table_of_shit" %>
+     
+    </table>  
+
+
+           <%=form_for @newitem, :controller => :visits, :action => :create_item_to_visit, :method => "post", remote: true,:id => @visit.id do |item|   %>
+
+     <div style='float:right'>
+      
+       <br>
+
+      </div>
+          <div class="col-xs-4" style='float:right'>
+
+            <%=item.text_field  :title, :placeholder => 'טיפול' ,:class => "form-control input-sm" %>
+          </div>
+          <div class="col-xs-4" style='float:right'>
+            <%=item.text_field  :description,  :placeholder => 'תיאור', :class => "form-control input-sm" %>
+          </div>
+      <div class="col-xs-4" style='float:right'>
+            <%=item.text_field :price,  :placeholder => 'מחיר', :class => "form-control input-sm" %>
+      </div>
+      <div class="col-xs-4" style='float:right'>
+
+       <%= item.submit "הוסף", :class => "btn btn-primary  btn-block" %>
+     </div>
+            <%= hidden_field_tag :visit_id, @visit.id %>
+
+      
+
+
+      <% end %>
+        
+   
+        
+   </div>
+
+</div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+    $('#form_visit_edit').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            owner_name: {
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+

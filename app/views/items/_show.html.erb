@@ -1,0 +1,34 @@
+   <tbody id="table-of-items">
+
+              <% 
+          total = 0
+          @items = Item.all
+          @items.each do |i| 
+          total += i.price.to_i
+        %>
+      <tr>
+        <td><%=i.title%></td>
+        <td><%=i.description%></td>
+        <td><%=i.price%></td>
+      </tr>
+<% end %>
+
+      <tr>
+             <td></td>
+                        <td>סכ"ה</td>
+
+        <td><%=total%></td>
+
+      </tr>
+            <tr>
+        <%=form_for @newitem, :controller => :visits, :action => :create_item_to_visit, :method => "post", remote: true,:id => @visit.id  do |item|   %>
+        <td> <%=item.text_field  :title, :placeholder => @visit.id ,:class => "form-control input-sm" %></td>
+        <td> <%=item.text_field  :description, :class => "form-control input-sm" %></td>
+        <td> <%=item.text_field :price, :class => "form-control input-sm" %></td>
+        <%= hidden_field_tag :visit_id, @visit.id %>
+      </tr>
+      <tr>
+      	<td> <%= item.submit :submit %></td>
+      </tr>
+      <% end %>
+    </tbody>

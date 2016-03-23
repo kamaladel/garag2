@@ -1,0 +1,16 @@
+<% @visit = Visit.find_by(id: params[:id])
+  @newitem = Item.new
+  %>
+ <tr>
+
+       <%=form_for @newitem, :controller => :visits, :action => :create_item_visit, :method => "post", remote: true,:id => @visit.id  do |item|   %>
+        <td> <%=item.text_field  :title, :placeholder => @visit.id ,:class => "form-control input-sm" %></td>
+        <td> <%=item.text_field  :description, :class => "form-control input-sm" %></td>
+        <td> <%=item.text_field :price, :class => "form-control input-sm" %></td>
+        <%= hidden_field_tag :visit_id, @visit.id %>
+
+      </tr>
+      <tr>
+        <td> <%= item.submit :submit %></td>
+      </tr>
+      <%end%>

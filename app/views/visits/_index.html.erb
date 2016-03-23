@@ -1,0 +1,38 @@
+
+<table class="table table-hover" style="width: 90%; align: center;    margin-left:auto; margin-right:auto;">
+    <thead>
+        <tr>
+            <th>מס' רכב</th>
+            <th>סור רכב</th>
+            <th>שנת יצור</th>
+            <th>לקוח</th>
+            <th>טלפון</th>
+            <th>תאריך כניסה</th>
+            <th>סטטוס</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%  @visits.each do |f|  
+                    btn_style = ""
+                    if f.open?
+                        btn_style = "red"
+                        button_text = "פתוח"
+                     else
+                        btn_style = "blue"
+                        button_text = "סגור"
+                    end
+        %>
+        <tr>
+        <td><%=link_to f.owner.car_number, visit_path(f),remote: true%></td>
+        <td><%= f.owner.car_type  %></td>
+        <td><%= f.owner.car_year %></td>
+        <td><%= f.owner.name%></td>
+        <td><%= f.owner.phone%></td>
+        <td><%=f.created_at.strftime("%d/%m/%Y")%></td>
+        <td><button type="button" class="w3-btn w3-<%=btn_style%>"><%=button_text%></button></td>
+        </tr>
+    </tbody>
+
+<div id="product-modal" class="modal fade"></div>
+        <%end%>
+

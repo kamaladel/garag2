@@ -1,0 +1,106 @@
+
+<div class="container" id="visit_show" style="width: 100%">
+  <div class="panel panel-default"  style="width: 40%; float:right"> טיפולים לרכב מספר: <%=@owner.car_number%> | יש לרכב זה <%=@visits.count%> ביקורים
+    <% @visits.each do |visit| %>
+
+    <div class="panel-heading">
+     <% 
+     date_created = visit.created_at.strftime('%d/%m/%Y')
+     header_text =  'טיפול מיום ' + date_created + ' | ' +  ' ביקור מס ' + visit.id.to_s %>
+     <%=link_to header_text, visit_path(visit), remote: true%>
+    </div>
+
+    <div class="panel-body" > 
+    <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>סוג טיפול</th>
+          <th>תיאור</th>
+          <th>מחיר</th>
+        </tr>
+      </thead>
+      <tbody id="table-of-items">
+              <% 
+      total = 0
+      visit.items.each do |item|
+      total += item.price.to_i
+       %>
+
+                <tr id="item-row<%=item.id%>">
+        
+        <td><%=item.title%></td>
+        <td><%=item.description%></td>
+        <td><%=item.price%></td>
+      </tr>
+      <% end %>
+
+      <tr>
+             <td></td>
+              <td>סכ"ה</td>
+
+        <td><%=total%></td>
+
+      </tr>
+
+
+    </tbody>
+    </table>  
+            <div class="col-xs-12">
+          <%=label_tag "הערות לטיפול" %>
+          <%=text_area_tag :notes ,visit.notes, disabled: true, :class => 'form-control', :rows => 4%>
+        </div>
+
+    </div>
+
+
+
+
+<%end%>
+
+    </div>
+    <div class="panel panel-default">
+    <div class="panel-heading" id="customer_info"> פרטי הלקוח
+      <div class="row">
+        <div class="col-xs-4" style='float:right'>
+          <%=label_tag "שם לקוח" %>
+          <%=text_field_tag :name,@visit.owner.name, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-4" style='float:right'>
+
+          <%=label_tag 'טלפון לקוח' %>
+          <%=text_field_tag :phone,@visit.owner.phone, disabled: true, :class => 'form-control'%>
+        </div>
+
+        <div class="col-xs-4" style='float:right'>
+          <%=label_tag 'דוא"ל' %>
+          <%=text_field_tag :email,@visit.owner.email, disabled: true, :class => 'form-control'%>
+        </div>
+
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag "סוג רכב" %>
+          <%=text_field_tag :car_type,@visit.owner.car_type, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag "דגם" %>
+          <%=text_field_tag :car_model, @visit.owner.car_model, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag 'שנת יצור' %>
+          <%=text_field_tag :car_year, @visit.owner.car_year, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag 'ק"מ' %>
+          <%=text_field_tag :car_km, @visit.owner.car_km,  disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-4">
+          <%=label_tag "מס' רכב" %>
+          <%=text_field_tag :car_number,@visit.owner.car_number, disabled: true, :class => 'form-control'%>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,98 @@
+<%f = @visit 
+  o = @owner
+         btn_style = ""
+          if !f.open?
+               btn_style = "primary"
+               button_text = "פתוח"
+          else
+              btn_style = "danger"
+              button_text = "סגור"
+          end
+%>
+<div class="container" id="visit_show">
+  <div class="panel panel-default" >
+    <div class="panel-heading">טיפול ברכב מספר <%=@owner.car_number%> מיום : <%=@visit.created_at.strftime("%d/%m/%Y")%>
+    
+    </div>
+
+    <div class="panel-body"> פרטי הלקוח והרכב
+      <div class="row">
+        <div class="col-xs-4" style='float:right'>
+          <%=label_tag "שם לקוח" %>
+          <%=text_field_tag :name,o.name, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-4" style='float:right'>
+
+          <%=label_tag 'טלפון לקוח' %>
+          <%=text_field_tag :phone,o.phone, disabled: true, :class => 'form-control'%>
+        </div>
+
+        <div class="col-xs-4" style='float:right'>
+          <%=label_tag 'דוא"ל' %>
+          <%=text_field_tag :email,o.email, disabled: true, :class => 'form-control'%>
+        </div>
+
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag "סוג רכב" %>
+          <%=text_field_tag :car_type,o.car_type, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag "דגם" %>
+          <%=text_field_tag :car_model, o.car_model, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag 'שנת יצור' %>
+          <%=text_field_tag :car_year, o.car_year, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-2" style='float:right'>
+          <%=label_tag 'ק"מ' %>
+          <%=text_field_tag :car_km, o.car_km,  disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-4">
+          <%=label_tag "מס' רכב" %>
+          <%=text_field_tag :car_number,o.car_number, disabled: true, :class => 'form-control'%>
+        </div>
+        <div class="col-xs-4" style='float:right'>
+          <%=label_tag 'הטיפול הבא' %>
+          <%=text_field_tag :car_next_service_date, o.car_next_service_date, disabled: true, :class => 'form-control'%>
+        </div>
+
+        <div class="col-xs-4">
+          <br>
+          <%=link_to "עריכת טיפול זה", edit_visit_path(@visit),remote: true, :class => "btn btn-primary btn-md btn-block"%>
+        </div>
+        <div class="col-xs-4" id="open_close_button">
+          <%= render 'status' %>
+          </div>
+                <div class="col-xs-4">
+             <br>
+          <%=link_to "הצג כל הביקורים ברכב זה", car_visits_path(@visit), remote: true, :class => "btn btn-primary btn-md" %>
+          </div>
+        <div class="col-xs-12">
+          <%=label_tag "הערות לטיפול" %>
+          <%=text_area_tag :notes ,f.notes, disabled: true, :class => 'form-control', :rows => 7%>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<div class="container" id="visit_items">
+  <div class="panel panel-default" >
+      <div class="panel-heading">פרטי טיפול ברכב <%=@owner.car_number%> מיום : <%=@visit.created_at.strftime("%d/%m/%Y")%>
+      </div>
+    <div class="panel-body"> פירוט טיפולים
+
+ 
+
+        
+    <table class="table table-hover">
+        <%=render 'table_of_shit'%>
+    </table>  
+
+   </div>
+
+</div>
+</div>
+

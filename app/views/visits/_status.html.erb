@@ -1,0 +1,14 @@
+         <%
+                  btn_style = ""
+          if !@visit.open?
+               btn_style = "primary"
+               button_text = "פתוח"
+          else
+              btn_style = "danger"
+              button_text = "סגור"
+          end
+          %>
+
+
+         <br>
+            <%=link_to 'סמן כטיפול ' + button_text, { :controller => "visits", :action => "status", :id => @visit.id }, remote: true, :method => "patch", :class => "btn btn-" +  btn_style + " btn-md btn-block"%>

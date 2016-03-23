@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+  <title>Garage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  
+<%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.4.min.js" %>
+<%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+           <li role="presentation" class="active"><%=link_to "דף הבית", visits_path, remote: true, class: 'btn btn-primary' %></li>
+            <li role="presentation" class="active"><%=link_to "טיפול חדש", new_visit_path, remote: true, class: 'btn btn-primary' %></li>
+        	<li role="presentation" class="active"><%=link_to 'דו"חות', new_visit_path, remote: true, class: 'btn btn-primary' %></li>
+
+          </ul>
+        </nav>
+        <h3 class="text-muted" align="left">שם מוסך</h3>
+      </div>
+    </div>
+    <div id="container_index">
+      <%= yield %>
+  	</div>
+
+</body>
+</html>

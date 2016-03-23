@@ -1,0 +1,102 @@
+
+
+
+      
+<div class="container" >
+  <div class="panel panel-default" >
+  	    <div class="panel-heading">
+
+<%= form_tag(find_car_path, remote: true, method: "get") do %>
+
+<%= text_field_tag :car_id %>
+<%=	submit_tag "Find", class: "btn btn-primary" %> 
+
+<%end%>
+</div>
+
+
+<%=form_for @owner.visits.new,  url: {  :action => :create_visit_owner, params: { id: @owner.id } } , :html => { :method => "post" } do |f| %>
+
+<%=fields_for @owner do |o| %>
+
+
+    <div class="panel-body"> פרטי הלקוח והרכב
+
+    	<div class="row">
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label "שם לקוח" %>
+				<%=o.text_field :name, disabled: true, :class => 'form-control'%>
+				
+
+
+			</div>
+			<div class="col-xs-4" style='float:right'>
+
+				<%=o.label 'טלפון לקוח' %>
+				<%=o.text_field :phone, disabled: true,:class => 'form-control'%>
+
+			</div>
+
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label 'דוא"ל' %>
+				<%=o.text_field :email, disabled: true, :class => 'form-control'%>
+				
+  			</div>
+
+       		<div class="col-xs-2" style='float:right'>
+  				<%=o.label "סוג רכב" %>
+				<%=o.text_field :car_type, disabled: true, :class => 'form-control'%>
+			</div>
+       		<div class="col-xs-2" style='float:right'>
+        
+     		   <%=o.label "דגם" %>
+      	       <%=o.text_field :car_model, disabled: true,  class: 'form-control'%>
+        
+   			</div>
+			<div class="col-xs-2" style='float:right'>
+				<%=o.label 'שנת יצור' %>
+				<%=o.text_field :car_year, disabled: true, :class => 'form-control'%>
+			</div>
+      		<div class="col-xs-2" style='float:right'>
+        
+  			   <%=o.label 'ק"מ' %>
+   			   <%=o.text_field :car_km, disabled: true,  class: 'form-control'%>
+        
+  			 </div>
+
+				
+			<div class="col-xs-4">
+				<%=o.label "מס' רכב" %>
+				<%=o.text_field :car_number,disabled: true, :class => 'form-control'%>
+			</div>
+
+
+
+
+
+
+            <div class="col-xs-4" style='float:right'>
+        
+        		<%=o.label 'הטיפול הבא' %>
+       			 <%=o.text_field :car_next_service_date, disabled: true,class: 'form-control'%>
+        
+       		</div>
+			<div class="col-xs-4">
+				<br>
+				<%=f.submit "הוסף טיפול", :class => "btn btn-primary btn-md btn-block"%>
+			</div>
+			<div class="col-xs-12">
+				<%=f.label "הערות לטיפול" %>
+				<%=f.text_area :notes ,disabled: false, :class => 'form-control', :rows => 7%>
+
+			</div>
+
+
+
+		</div>
+  </div>
+
+</div>
+<% end %>
+<%end %>
+

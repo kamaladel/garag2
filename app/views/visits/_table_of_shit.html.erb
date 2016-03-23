@@ -1,0 +1,41 @@
+     <thead>
+        <tr>
+          <th> X </th>
+          <th>סוג טיפול</th>
+          <th>תיאור</th>
+          <th>מחיר</th>
+        </tr>
+      </thead>
+      <tbody id="table-of-items">
+
+              <% 
+          total = 0
+          unless @items.empty?
+           @items.each do |i| 
+          total += i.price.to_i
+        %>
+      <tr id="item-row<%=i.id%>">
+        <td> <%= link_to "X", {:controller => "visits", :action => 'destroy_item_visit', :item_id => i.id },remote: true, data: { confirm: 'Are you sure you want to delete this alert?' }, :method => :delete %>
+ </td>
+        <td><%=i.title%></td>
+        <td><%=i.description%></td>
+        <td><%=i.price%></td>
+      </tr>
+<% end %>
+
+      <tr>
+             <td></td>
+              <td>סכ"ה</td>
+
+        <td><%=total%></td>
+
+      </tr>
+<% else %>
+<tr>
+  <td>
+    אין טיפולים לרכב זה
+  </td>
+</tr>
+<% end %>
+
+    </tbody>

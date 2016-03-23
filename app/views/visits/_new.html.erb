@@ -1,0 +1,102 @@
+
+<div class="container" >
+	<div class="panel panel-default">
+    	<div class="panel-heading">
+
+<%= form_tag(find_car_path, remote: true, method: "get", :id => 'search_form') do %>
+
+<%= text_field_tag :car_id, '', :placeholder => 'חפש רכב לפי מספר',  :id=> 'car_number'  %>
+<%=	submit_tag "Find", class: "btn btn-primary" %> 
+<%if !@found_owner %>
+<span id="not_found_label" class="label label-danger">לא נמצא רכב מספר <i>  <%=params[:car_id] %> </il> במערכת</span>
+<% end %>
+<%end%>
+		</div>
+<%=form_for @visit do |f| %>
+
+<%=fields_for @owner do |o| %>
+		<div class="panel-heading">
+		<%=submit_tag "הוספת לקוח חדש",:class => "btn btn-primary active",:id=> "clicked_add", :type => 'button'%>
+    	
+    	</div>
+
+    <div class="panel-body" id="new_owner_div" style="display:none"> פרטי הלקוח והרכב
+
+    	<div class="row">
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label "שם לקוח" %>
+				<%=o.text_field :name, :class => 'form-control'%>
+
+
+
+			</div>
+			<div class="col-xs-4" style='float:right'>
+
+				<%=o.label 'טלפון לקוח' %>
+				<%=o.text_field :phone, :class => 'form-control'%>
+
+			</div>
+
+			<div class="col-xs-4" style='float:right'>
+				<%=o.label 'דוא"ל' %>
+				<%=o.text_field :email, :class => 'form-control'%>
+				
+  			</div>
+
+       		<div class="col-xs-2" style='float:right'>
+  				<%=o.label "סוג רכב" %>
+				<%=o.text_field :car_type, :class => 'form-control'%>
+			</div>
+       		<div class="col-xs-2" style='float:right'>
+        
+     		   <%=o.label "דגם" %>
+      	       <%=o.text_field :car_model,  class: 'form-control'%>
+        
+   			</div>
+			<div class="col-xs-2" style='float:right'>
+				<%=o.label 'שנת יצור' %>
+				<%=o.text_field :car_year, :class => 'form-control'%>
+			</div>
+      		<div class="col-xs-2" style='float:right'>
+        
+  			   <%=o.label 'ק"מ' %>
+   			   <%=o.text_field :car_km,   class: 'form-control'%>
+        
+  			 </div>
+
+				
+			<div class="col-xs-4">
+				<%=o.label "מס' רכב" %>
+				<%=o.text_field :car_number, :class => 'form-control'%>
+			</div>
+
+
+
+
+
+
+            <div class="col-xs-4" style='float:right'>
+        
+        		<%=o.label 'הטיפול הבא' %>
+       			 <%=o.text_field :car_next_service_date, class: 'form-control'%>
+        
+       		</div>
+			<div class="col-xs-4">
+				<br>
+				<%=f.submit "הוסף טיפול", :class => "btn btn-primary btn-md btn-block"%>
+			</div>
+			<div class="col-xs-12">
+				<%=f.label "הערות לטיפול" %>
+				<%=f.text_area :notes ,:class => 'form-control', :rows => 7%>
+
+			</div>
+
+
+
+		</div>
+  </div>
+
+</div>
+<% end %>
+<%end %>
+
